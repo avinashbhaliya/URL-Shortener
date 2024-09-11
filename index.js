@@ -1,7 +1,9 @@
 const express = require("express");
-const urlRouter = require('./routes/url.js');
+const urlRoute = require('./routes/url.js');
 const { connectMongoDB } = require("./connect.js");
 const URL = require("./models/url.js");
+const userRoute = require('./routes/user.js');
+ 
 
 const app = express();
 const PORT = 8001;
@@ -18,6 +20,7 @@ app.get('/:shortId', async (req, res) => {
     const shortId = req.params.shortId;
     
     try {
+        
         // Find the document by shortId and update visit history
         const entry = await URL.findOneAndUpdate(
             { shortId }, // Query using shortId
@@ -44,8 +47,10 @@ app.get('/:shortId', async (req, res) => {
     }
 });
 
+
 // Route for URL shortening
-app.use('/url', urlRouter);
+app.use('/url', urlRoute);
+app.use('/user',userRoute)
 
 // Start the server
 app.listen(PORT, () => {
