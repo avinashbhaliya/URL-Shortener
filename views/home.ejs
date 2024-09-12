@@ -10,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home page</title>
   </head>
+
+
   <body>
     <h1>URL Shortener</h1>
     <div>
@@ -21,8 +23,9 @@
         >
       </p>
       <% } %>
+      
 
-      <form method="POST" action="../routes/url.js">
+      <form method="POST" action="../routes/url">
         <label>Enter Your Original URL</label>
         <input type="text" name="url" placeholder="https://example.com" />
         <button type="submit">Generate</button>
@@ -43,14 +46,13 @@
           <tr>
             <td><%= index + 1 %></td>
             <td>
-                <a href="http://localhost:8001/<%= url.shortId %>">
-                  <%=url.shortId%>
-                </a>
+              <a href="http://localhost:8001/<%= url.shortId %>">
+                <%=url.shortId%>
+              </a>
             </td>
 
             <td><%= url.redirectURL %></td>
             <td><%= url.visitHistory.length %></td>
-            
           </tr>
           <% }); %>
         </tbody>
