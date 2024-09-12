@@ -5,6 +5,9 @@ const URL = require("./models/url.js");
 const userRoute = require('./routes/user.js');
 const path = require('path');
 const staticRoute = require('./routes/staticRouter.js')
+const cookieParser = require('cookie-parser')
+const {restrictToLoggedinUserOnly, checkAuth} = require('./middleware/auth.js')
+
 
 
 
@@ -23,6 +26,7 @@ app.set('views', path.resolve('./views'))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser());
 
 // app.get('/test',async(req,res) =>{ 
 //     const allUrls = await URL.find({});
@@ -32,8 +36,8 @@ app.use(express.urlencoded({ extended: false }))
 
 // })
 
-app.use('/url', urlRoute);
-app.use('/routes/url', urlRoute);
+app.use('/url', restrictToLoggedinUserOnly, urlRoute);
+app.use('/routes/url', restrictToLoggedinUserOnly, urlRoute);
 app.use('/user', userRoute);
 app.use('/', staticRoute);
 
