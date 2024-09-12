@@ -2,6 +2,10 @@
 const URL = require("../models/url.js");
 const shortid = require("shortid");
 
+
+
+
+
 async function handleGenerateNewURL(req,res) {
 
         const body = req.body;
@@ -13,7 +17,11 @@ async function handleGenerateNewURL(req,res) {
             visitHistory: [],
         });
 
-        return res.json({id : shortId});
+        return res.render("home",{
+            id : shortId
+        })
+
+        // return res.json({id : shortId});
 }
 
 module.exports = {handleGenerateNewURL};
