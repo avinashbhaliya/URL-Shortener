@@ -9,7 +9,7 @@ async function handleUserSignup(req,res) {
             password
         });
 
-     return res.render("home");
+        return res.redirect("/");
 }
 
 async function handleUserLogin(req,res) {
@@ -20,11 +20,9 @@ async function handleUserLogin(req,res) {
                 error : "Invalid Username or Password"
             });
             
-            return res.redirect("/")
         }
-       
-
-     return res.render("home");
+        return res.redirect("/")
+    
 }
 
 module.exports = {
