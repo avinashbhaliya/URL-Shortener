@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: false }))
 // })
 
 app.use('/url', urlRoute);
-app.use('/routes/url.js', urlRoute);
+app.use('/routes/url', urlRoute);
 app.use('/user', userRoute);
 app.use('/', staticRoute);
 
