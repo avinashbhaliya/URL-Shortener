@@ -14,7 +14,6 @@ const {restrictToLoggedinUserOnly, checkAuth} = require('./middleware/auth.js')
 const app = express();
 const PORT = 8001;
 
-
 connectMongoDB("mongodb://localhost:27017/short-url").then(() => {
     console.log("Connection successful");
 });
@@ -36,8 +35,8 @@ app.use(cookieParser());
 
 // })
 
-app.use('/url', restrictToLoggedinUserOnly, urlRoute);
-app.use('/routes/url', restrictToLoggedinUserOnly, urlRoute);
+app.use('/url', urlRoute);
+app.use('/routes/url', urlRoute);
 app.use('/user', userRoute);
 app.use('/', staticRoute);
 
