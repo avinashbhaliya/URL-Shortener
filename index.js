@@ -6,7 +6,7 @@ const userRoute = require('./routes/user.js');
 const path = require('path');
 const staticRoute = require('./routes/staticRouter.js')
 const cookieParser = require('cookie-parser')
-const {restrictToLoggedinUserOnly, checkAuth} = require('./middleware/auth.js')
+const {restrictToRoles, checkForAuthentication} = require('./middleware/auth.js')
 
 
 
@@ -26,6 +26,7 @@ app.set('views', path.resolve('./views'))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
+app.use(checkForAuthentication);
 
 // app.get('/test',async(req,res) =>{ 
 //     const allUrls = await URL.find({});
@@ -35,10 +36,10 @@ app.use(cookieParser());
 
 // })
 
-app.use('/url', urlRoute);
-app.use('/routes/url', urlRoute);
+app.use('/url', restrictToRoles(["NORMAL"]),urlRoute);
+app.use('/routes/url',urlRoute);
 app.use('/user', userRoute);
-app.use('/', staticRoute);
+app.use('/',restrictToRoles, staticRoute);
 
 
 app.get

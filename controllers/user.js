@@ -3,6 +3,7 @@ const User = require('../models/user.js')
 const { v4 : uuidv4} = require('uuid');
 const {setUser}  = require('../service/auth.js')
 
+
 async function handleUserSignup(req,res) {
         const {name, email, password} = req.body
         await User.create({
@@ -23,10 +24,11 @@ async function handleUserLogin(req,res) {
             });
             
         }
+
         const token = setUser(user);
         // setUser(sessionId,user);
-        res.cookie("uid", token);
-        return res.redirect("/")
+        // res.cookie("uid", token);
+        return res.json({token})
     
 }
 
